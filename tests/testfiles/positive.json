@@ -1,0 +1,17 @@
+{
+    "string": "hello world",
+    "integer": 1,
+    "boolean": true,
+    "object": {
+        "param": "world",
+        "anotherParam": "anotherWorld"
+    },
+    "array": [
+        1,
+        2
+    ],
+    "deep": [
+        { "item": "a", "type": true },
+        { "item": "b", "type": false }
+    ]
+}

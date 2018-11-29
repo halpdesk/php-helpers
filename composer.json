@@ -1,0 +1,28 @@
+{
+    "name": "halpdesk/php-helpers",
+    "description": "Some array, string and console helper functions",
+    "type": "library",
+    "require": {
+        "php": ">=7.2.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Halpdesk\\Helpers\\": "src/",
+            "Halpdesk\\Helpers\\Tests\\": "tests/"
+        },
+        "files": [
+            "src/Helpers/array-helpers.php",
+            "src/Helpers/array-key-helpers.php",
+            "src/Helpers/console-helpers.php",
+            "src/Helpers/error-helpers.php",
+            "src/Helpers/string-helpers.php"
+        ],
+        "classmap": [
+        ]
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
