@@ -1,41 +1,45 @@
 <?php
 
-/*
- *  cc - console color
- *  Function from www.if-not-true-then-false.com
+/**
+ *  Console color
+ *  Format text with the standard console colors
+ *
+ *  Foreground colors:
+ *      black, blue, green, cyan, red, purple, brown, light_grey
+ *      dark_grey, light_blue, light_green, light_cyan, light_red
+ *      light_purple, yellow, white
+ *
+ *  Background colors:
+ *      black, green, blue, light_grey, red, yellow, magenta, cyan
+ *
+ *  @param String $fg   The foreground color
+ *  @param String $bg   The background color
+ *  @author Halpdesk
  */
 if (!function_exists('cc')) {
-    function cc($string, $foreground_color = null, $background_color = null, $escapeJson = false)
+    function cc($string, $fg = null, $bg = null)
     {
-        $escapeCharacter = $escapeJson ? "\033" : "\033";
-        $foreground_colors = array(
-            'black'        => '0;30','dark_gray'    => '1;30',
-            'blue'         => '0;34','light_blue'   => '1;34',
-            'green'        => '0;32','light_green'  => '1;32',
-            'cyan'         => '0;36','light_cyan'   => '1;36',
-            'red'          => '0;31','light_red'    => '1;31',
-            'purple'       => '0;35','light_purple' => '1;35',
-            'brown'        => '0;33','yellow'       => '1;33',
-            'light_gray'   => '0;37','white'        => '1;37'
+        $escChr = "\033";
+        $fgs = array(
+            'black'      => '0;30', 'dark_gray'    => '1;30',
+            'blue'       => '0;34', 'light_blue'   => '1;34',
+            'green'      => '0;32', 'light_green'  => '1;32',
+            'cyan'       => '0;36', 'light_cyan'   => '1;36',
+            'red'        => '0;31', 'light_red'    => '1;31',
+            'purple'     => '0;35', 'light_purple' => '1;35',
+            'brown'      => '0;33', 'yellow'       => '1;33',
+            'light_gray' => '0;37', 'white'        => '1;37'
         );
-        $background_colors = array(
-            'black'      => '40', 'red'        => '41',
-            'green'      => '42', 'yellow'     => '43',
-            'blue'       => '44', 'magenta'    => '45',
-            'light_gray' => '47', 'cyan'       => '46',
+        $bgs = array(
+            'black'      => '40', 'red'     => '41',
+            'green'      => '42', 'yellow'  => '43',
+            'blue'       => '44', 'magenta' => '45',
+            'light_gray' => '47', 'cyan'    => '46',
         );
-        $colored_string = "";
-        // Check if given foreground color found
-        if (isset($foreground_colors[$foreground_color])) {
-            $colored_string .= $escapeCharacter. "[" . $foreground_colors[$foreground_color] . "m";
-        }
-        // Check if given background color found
-        if (isset($background_colors[$background_color])) {
-            $colored_string .= $escapeCharacter . "[" . $background_colors[$background_color] . "m";
-        }
-        // Add string and end coloring
-        $colored_string .=  $string . $escapeCharacter . "[0m";
-        return $colored_string;
+        return
+            (isset($fgs[$fg]) ? "\033[" . $fgs[$fg] . "m" : null) .
+            (isset($bgs[$bg]) ? "\033[" . $bgs[$bg] . "m" : null) .
+            $string . "\033[0m";
     }
 }
 
@@ -77,45 +81,49 @@ if (!function_exists('eject') && function_exists('cc')) {
         $coloredArr = $f($arr);
 
         $indentation = '';
-        for ($i = 0; $i <= $tabspace; $i++) {
+        for ($i = 0; $i < $tabspace; $i++) {
             $indentation .= ' ';
         }
 
         $json = json_encode($coloredArr, JSON_PRETTY_PRINT);
-        $json = str_replace("    ", "-tab1-tab2-tab3-tab4", $json);
-        $json = str_replace("-tab1-tab2-tab3-tab4", "  ", $json);
+        $json = str_replace("    ", "\t", $json);
+        $json = str_replace("\t", "  ", $json);
         $json = str_replace("\n", "\n".$indentation, $json);
         $json = str_replace("\u001b", "\033", $json);
-        echo $indentation. $json . "\n";
+        print $indentation. $json;
     }
 }
 
 /**
- * jdd - json dump and die (works good in console)
+ *  edd - eject, dump and die
+ *  (depends on function eject)
  *
- * @param Array $array      The Array to dump
- * @return void
- * @author Halpdesk
+ *  @param Array $array      The Array to dump
+ *  @return void
+ *  @author Halpdesk
  */
-if (!function_exists('jdd') && function_exists('eject')) {
-    function jdd($array)
+if (!function_exists('edd') && function_exists('eject')) {
+    function edd($array)
     {
         $array = json_decode(json_encode($array), true);
         eject($array);
-        die();
+        die("\n");
     }
 }
 
 /**
- * output - prints a text with color support
- * depends on function cc
+ *  output - prints a text with color support
+ *  (depends on function cc)
  *
- * @param string $message   The text to output
- * @param string $style     Three standard stylings to chose from: "info", "warn" or "err"
- * @param int $indent       Indentation
- * @param bool $returnOnly  If set to true the function only returns the text, but does not actually output it
- * @return string           The final message, color encoded
- * @author Halpdesk
+ *  Styles:
+ *      info, warn, err
+ *
+ *  @param string $message   The text to output
+ *  @param string $style     Three standard stylings to chose from: "info", "warn" or "err"
+ *  @param int $indent       Indentation
+ *  @param bool $returnOnly  If set to true the function only returns the text, but does not actually output it
+ *  @return string           The final message, color encoded
+ *  @author Halpdesk
  */
 if (!function_exists('output') && function_exists('cc')) {
     function output($message = null, $style = null, $indent = 0, $returnOnly = false)
@@ -152,15 +160,15 @@ if (!function_exists('output') && function_exists('cc')) {
 }
 
 /**
- * outputln - output color coded message to a console with a new line
- * depends on output
+ *  outputln - output color coded message to a console with a new line
+ *  (depends on function output)
  *
- * @param string $message   The text to output
- * @param string $style     Three standard stylings to chose from: "info", "warn" or "err"
- * @param int $indent       Indentation
- * @param bool $returnOnly  If set to true the function only returns the text, but does not actually output it
- * @return string           The final message, color encoded
- * @author Halpdesk
+ *  @param string $message   The text to output
+ *  @param string $style     Three standard stylings to chose from: "info", "warn" or "err"
+ *  @param int $indent       Indentation
+ *  @param bool $returnOnly  If set to true the function only returns the text, but does not actually output it
+ *  @return string           The final message, color encoded
+ *  @author Halpdesk
  */
 if (!function_exists('outputln') && function_exists('output')) {
     function outputln($message = null, $style = null, $indent = 0, $returnOnly = false)
@@ -170,21 +178,20 @@ if (!function_exists('outputln') && function_exists('output')) {
 }
 
 /**
- * od (overdose) - output and die
- * depends on output
+ *  od - output and die (i.e. overdose)
+ *  (depends on function output)
  *
- * @param string $message   The text to output
- * @param string $style     Three standard stylings to chose from: "info", "warn" or "err"
- * @param int $indent       Indentation
- * @param bool $returnOnly  If set to true the function only returns the text, but does not actually output it
- * @return void
- * @author Halpdesk
+ *  @param string $message   The text to output
+ *  @param string $style     Three standard stylings to chose from: "info", "warn" or "err"
+ *  @param int $indent       Indentation
+ *  @param bool $returnOnly  If set to true the function only returns the text, but does not actually output it
+ *  @return void
+ *  @author Halpdesk
  */
 if (!function_exists('od') && function_exists('output')) {
     function od($message = null, $style = null, $indent = 0)
     {
         output($message, 'err', $indent);
-        output("\n");
-        die();
+        die("\n");
     }
 }
