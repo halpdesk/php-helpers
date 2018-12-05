@@ -27,7 +27,7 @@ if (!function_exists('get_formatted_trace')) {
             $line = isset($t['line']) ? $t['line'] : '';
 
 
-            $in = (empty($file)) ? '' : ' ---> ' . $basePath . $file . ':' . $line . '';
+            $in = (empty($file)) ? '' : ' --> ' . $file . ':' . $line . '';
 
             $formattedTrace[] = $function . $in;
         }
@@ -53,7 +53,7 @@ if (!function_exists('get_formatted_error')) {
         $message = !empty(trim($e->getMessage())) ? ': ' . $e->getMessage() : ' with no message';
 
         $formattedError = (new \ReflectionClass($e))->getShortName() . '[' . $e->getCode() . ']' . $message .
-            ($with_file_and_line ? ' ---> ' . $basePath . $file . ':' . $line : '');
+            ($with_file_and_line ? ' --> ' . $basePath . $file . ':' . $line : '');
 
         return $formattedError;
     }
