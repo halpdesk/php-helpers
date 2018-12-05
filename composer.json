@@ -14,11 +14,11 @@
             "Halpdesk\\Helpers\\Tests\\": "tests/"
         },
         "files": [
+            "src/Helpers/string-helpers.php",
             "src/Helpers/array-helpers.php",
             "src/Helpers/array-key-helpers.php",
             "src/Helpers/console-helpers.php",
-            "src/Helpers/error-helpers.php",
-            "src/Helpers/string-helpers.php"
+            "src/Helpers/error-helpers.php"
         ],
         "classmap": [
         ]
