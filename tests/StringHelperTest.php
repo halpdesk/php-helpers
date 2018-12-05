@@ -10,21 +10,83 @@ use PHPUnit\Framework\TestCase;
 class StringHelperTest extends TestCase
 {
     /**
+     * @covers camel_case()
+     * @group string
+     */
+    public function test_camel_case()
+    {
+        $this->assertEquals(
+            'helloWorld',
+            camel_case('HelloWorld')
+        );
+        $this->assertEquals(
+            'helloWorld',
+            camel_case('Hello world')
+        );
+        // $this->assertEquals(
+        //     'helloWorld',
+        //     camel_case('Hello.World')
+        // );
+        $this->assertEquals(
+            'helloWorld',
+            camel_case('hello-world')
+        );
+        $this->assertEquals(
+            'helloWorld',
+            camel_case('hello_world')
+        );
+    }
+
+    /**
+     * @covers snake_case()
+     * @group string
+     */
+    public function test_snake_case()
+    {
+        $this->assertEquals(
+            'hello_world',
+            snake_case('HelloWorld')
+        );
+        $this->assertEquals(
+            'hello_world',
+            snake_case('Hello world')
+        );
+        // $this->assertEquals(
+        //     'hello_world',
+        //     snake_case('Hello.World')
+        // );
+        $this->assertEquals(
+            'hello_world',
+            snake_case('hello-world')
+        );
+        $this->assertEquals(
+            'hello_world',
+            snake_case('helloWorld')
+        );
+    }
+
+    /**
      * @covers replace_foreign_chars()
      * @group string
      */
     public function test_replace_foreign_chars()
     {
-        $this->markTestSkipped();
+        $this->assertEquals(
+            'ceiuuaaaeoooEIUUAAAEOOO',
+            replace_foreign_chars('çéíûüåäæöõøÉÍÛÜÅÄÆÕÖØ')
+        );
     }
 
     /**
-     * @covers convert_to_alphanumeric()
+     * @covers strip_to_alphanumeric()
      * @group string
      */
-    public function test_convert_to_alphanumeric()
+    public function test_strip_to_alphanumeric()
     {
-        $this->markTestSkipped();
+        $this->assertEquals(
+            'Im only alphanumeric I AM Bond - James Bond 007',
+            strip_to_alphanumeric('I\'m ñØᄐonly alpha+numeric, I. AM. Bond - James Bond: 007')
+        );
     }
 
     /**
@@ -33,6 +95,7 @@ class StringHelperTest extends TestCase
      */
     public function test_is_alphanumeric()
     {
-        $this->markTestSkipped();
+        $this->assertTrue(is_alphanumeric('Im only alphanumeric I AM Bond - James Bond 007'));
+        $this->assertFalse(is_alphanumeric('I\'m ñØᄐonly alpha+numeric, I. AM. Bond - James Bond: 007'));
     }
 }
