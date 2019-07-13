@@ -59,7 +59,7 @@ if (!function_exists('replace_foreign_chars')) {
 if (!function_exists('strip_to_alphanumeric')) {
     function strip_to_alphanumeric($string)
     {
-        $string = preg_replace('/[^a-zA-Z0-9\s-_]/i', '', $string);
+        $string = preg_replace('/[^a-zA-Z0-9\s\-_]/i', '', $string);
         return $string;
     }
 }
@@ -71,6 +71,6 @@ if (!function_exists('strip_to_alphanumeric')) {
 if (!function_exists('is_alphanumeric')) {
     function is_alphanumeric($string)
     {
-        return preg_match('/[^a-z0-9\s-_]/i', $string) === 0;
+        return preg_match('/[^a-z0-9\s\-_]/i', $string) === 0;
     }
 }
