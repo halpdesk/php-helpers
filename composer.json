@@ -1,5 +1,5 @@
 {
-    "name": "halpdesk/php-helpers",
+    "name": "halpdesk/helpers",
     "description": "Some array, string and console helper functions",
     "type": "library",
     "require": {
