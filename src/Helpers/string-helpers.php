@@ -5,7 +5,7 @@
  *  @author Halpdesk
  */
 if (!function_exists('camel_case')) {
-    function camel_case(string $string)
+    function camel_case(String $string)
     {
         $chars = ['-', '_', ' '];
         return lcfirst(str_replace($chars, '', ucwords($string, implode($chars))));
@@ -13,11 +13,11 @@ if (!function_exists('camel_case')) {
 }
 
 /**
- *  @param String $string   The string to camelCase
+ *  @param String $string   The string to snake_case
  *  @author Halpdesk
  */
 if (!function_exists('snake_case')) {
-    function snake_case(string $string)
+    function snake_case(String $string)
     {
         $chars = ['-', ' '];
         // u = treated as UTF8
@@ -31,11 +31,12 @@ if (!function_exists('snake_case')) {
  *  There are probably many ways to do this for all characters, but the blow answer does not work for all encodings:
  *  https://stackoverflow.com/questions/9720665/how-to-convert-special-characters-to-normal-characters
  *
- *  @param String $string   The string to manipulate
+ *  @param String   $string The string to manipulate
+ *  @return String          The string with foreign characters replaced
  *  @author Halpdesk
  */
 if (!function_exists('replace_foreign_chars')) {
-    function replace_foreign_chars(string $string)
+    function replace_foreign_chars(String $string)
     {
         $foreign = [
             'ç',
@@ -53,11 +54,11 @@ if (!function_exists('replace_foreign_chars')) {
 
 /**
  * Strips all letters that are not alphanumeric
- * @param string $string    The string to manipulate
- * @return string           The stripped string
+ * @param String    $string     The string to manipulate
+ * @return String               The stripped string
  */
 if (!function_exists('strip_to_alphanumeric')) {
-    function strip_to_alphanumeric($string)
+    function strip_to_alphanumeric(String $string)
     {
         $string = preg_replace('/[^a-zA-Z0-9\s\-_]/i', '', $string);
         return $string;
@@ -66,10 +67,11 @@ if (!function_exists('strip_to_alphanumeric')) {
 
 /**
  * Checks if string is alphanumeric
+ * @param String    $string     The string to manipulate
  * @return bool
  */
 if (!function_exists('is_alphanumeric')) {
-    function is_alphanumeric($string)
+    function is_alphanumeric(String $string)
     {
         return preg_match('/[^a-z0-9\s\-_]/i', $string) === 0;
     }

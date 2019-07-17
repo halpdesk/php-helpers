@@ -4,13 +4,13 @@
  * get_formatted_trace - get the trace of an exception
  * depends on Laravel functions
  *
- * @param Array $trace  The trace stack to format
- * @return Array        The formatted trace
+ * @param Array     $trace      The trace stack to format
+ * @param String    $basePath   If not null, it removes the base path portion for each trace line
+ * @return Array                The formatted trace
  * @author Halpdesk
  */
-
 if (!function_exists('get_formatted_trace')) {
-    function get_formatted_trace(array $trace, $basePath = null)
+    function get_formatted_trace(Array $trace, String $basePath = null)
     {
         $basePath = $basePath ?? (function_exists('base_path') ? base_path() : dirname(realpath(__FILE__))) . DIRECTORY_SEPARATOR;
 
@@ -39,12 +39,14 @@ if (!function_exists('get_formatted_trace')) {
 /**
  *  get_formatted_error - get the error of an exception
  *
- * @param Array $trace  The trace stack to format
- * @return Array        The formatted trace
+ * @param Array     $trace      The trace stack to format
+ * @param String    $basePath   If not null, it removes the base path portion for each trace line
+ * @param bool      $showFile   If set to true, show which file
+ * @return Array                The formatted trace
  * @author Halpdesk
  */
 if (!function_exists('get_formatted_error')) {
-    function get_formatted_error(Exception $e, $with_file_and_line = true)
+    function get_formatted_error(Exception $e, String $basePath = null, bool $showFile = true)
     {
         $basePath = $basePath ?? (function_exists('base_path') ? base_path() : dirname(realpath(__FILE__))) . DIRECTORY_SEPARATOR;
 
@@ -53,7 +55,7 @@ if (!function_exists('get_formatted_error')) {
         $message = !empty(trim($e->getMessage())) ? ': ' . $e->getMessage() : ' with no message';
 
         $formattedError = (new \ReflectionClass($e))->getShortName() . '[' . $e->getCode() . ']' . $message .
-            ($with_file_and_line ? ' --> ' . $basePath . $file . ':' . $line : '');
+            ($showFile ? ' --> ' . $basePath . $file . ':' . $line : '');
 
         return $formattedError;
     }

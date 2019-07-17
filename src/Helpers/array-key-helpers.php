@@ -8,7 +8,7 @@
  *  @author Halpdesk
  */
 if (!function_exists('array_keys_to_camel_case') && function_exists('camel_case')) {
-    function array_keys_to_camel_case(array $array)
+    function array_keys_to_camel_case(Array $array)
     {
         $returnArray = [];
         foreach ($array as $key => $value) {
@@ -31,7 +31,7 @@ if (!function_exists('array_keys_to_camel_case') && function_exists('camel_case'
  *  @author Halpdesk
  */
 if (!function_exists('array_keys_to_snake_case') && function_exists('snake_case')) {
-    function array_keys_to_snake_case(array $array)
+    function array_keys_to_snake_case(Array $array)
     {
         $returnArray = [];
         foreach ($array as $key => $value) {
@@ -54,7 +54,7 @@ if (!function_exists('array_keys_to_snake_case') && function_exists('snake_case'
  *  @author Halpdesk
  */
 if (!function_exists('array_keys_to_ucfirst')) {
-    function array_keys_to_ucfirst(array $array)
+    function array_keys_to_ucfirst(Array $array)
     {
         $returnArray = [];
         foreach ($array as $key => $value) {
@@ -77,7 +77,7 @@ if (!function_exists('array_keys_to_ucfirst')) {
  *  @author Halpdesk
  */
 if (!function_exists('array_keys_to_lcfirst')) {
-    function array_keys_to_lcfirst(array $array)
+    function array_keys_to_lcfirst(Array $array)
     {
         $returnArray = [];
         foreach ($array as $key => $value) {

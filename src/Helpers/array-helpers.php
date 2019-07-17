@@ -11,7 +11,7 @@
  *
  */
 if (!function_exists('json_to_array')) {
-    function json_to_array($content, $assoc = true)
+    function json_to_array(String $content, $assoc = true)
     {
         // Remove byte order mark from beginning of content if found
         $STR_BOM = "\xEF\xBB\xBF";
@@ -67,7 +67,7 @@ if (!function_exists('json_to_array')) {
  *
  */
 if (!function_exists('json_file_to_array') && function_exists('json_to_array')) {
-    function json_file_to_array($path)
+    function json_file_to_array(String $path)
     {
         if (!file_exists($path)) {
             trigger_error(
@@ -149,7 +149,7 @@ if (!function_exists('array_patch')) {
  *  @author Halpdesk
  */
 if (! function_exists('array_to_csv')) {
-    function array_to_csv($array, $separator = ';', $newLine = "\n")
+    function array_to_csv(Array $array, String $separator = ';', String $newLine = "\n")
     {
         $content = '';
         if (is_array($array)) {

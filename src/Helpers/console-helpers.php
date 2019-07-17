@@ -17,7 +17,7 @@
  *  @author Halpdesk
  */
 if (!function_exists('cc')) {
-    function cc($string, $fg = null, $bg = null)
+    function cc(String $string, String $fg = null, String $bg = null)
     {
         $escChr = "\033";
         $fgs = array(
@@ -49,14 +49,14 @@ if (!function_exists('cc')) {
  *
  *  @param  Array $arr              The arrays to eject
  *  @param  int $tabspace           Number of spaced in for indentation / tab
- *  @param  string $fgKeyColor      Text color for the array keys
- *  @param  string $fgValueColor    Text color for the array values
- *  @param  string $bgColor         Background color for output
+ *  @param  String $fgKeyColor      Text color for the array keys
+ *  @param  String $fgValueColor    Text color for the array values
+ *  @param  String $bgColor         Background color for output
  *  @return void
  *  @author Halpdesk
  */
 if (!function_exists('eject') && function_exists('cc')) {
-    function eject($arr, $tabspace = 2, $fgKeyColor = 'blue', $fgValueColor = 'brown', $bgColor = null)
+    function eject(Array $arr, int $tabspace = 2, String $fgKeyColor = 'blue', String $fgValueColor = 'brown', $bgColor = null)
     {
         if ($arr instanceof stdClass) {
             $arr = json_decode(json_encode($arr), true);;
@@ -103,7 +103,7 @@ if (!function_exists('eject') && function_exists('cc')) {
  *  @author Halpdesk
  */
 if (!function_exists('edd') && function_exists('eject')) {
-    function edd($array)
+    function edd(Array $array)
     {
         $array = json_decode(json_encode($array), true);
         eject($array);
@@ -126,7 +126,7 @@ if (!function_exists('edd') && function_exists('eject')) {
  *  @author Halpdesk
  */
 if (!function_exists('output') && function_exists('cc')) {
-    function output($message = null, $style = null, $indent = 0, $returnOnly = false)
+    function output(String $message = null, String $style = null, int $indent = 0, bool $returnOnly = false)
     {
         $message = str_pad('', $indent, ' ') . $message;
         $format = null;
@@ -171,7 +171,7 @@ if (!function_exists('output') && function_exists('cc')) {
  *  @author Halpdesk
  */
 if (!function_exists('outputln') && function_exists('output')) {
-    function outputln($message = null, $style = null, $indent = 0, $returnOnly = false)
+    function outputln(String $message = null, String $style = null, int $indent = 0, bool $returnOnly = false)
     {
         return output($message."\n", $style, $indent, $returnOnly);
     }
@@ -189,7 +189,7 @@ if (!function_exists('outputln') && function_exists('output')) {
  *  @author Halpdesk
  */
 if (!function_exists('od') && function_exists('output')) {
-    function od($message = null, $style = null, $indent = 0)
+    function od(String $message = null, String $style = null, int $indent = 0)
     {
         output($message, 'err', $indent);
         die("\n");
