@@ -50,7 +50,7 @@ if (!function_exists('get_formatted_error')) {
     {
         $basePath = $basePath ?? (function_exists('base_path') ? base_path() : dirname(realpath(__FILE__))) . DIRECTORY_SEPARATOR;
 
-        $file = str_replace($basePath . '/', '', $e->getFile());
+        $file = str_replace($basePath, '', $e->getFile());
         $line = $e->getLine();
         $message = !empty(trim($e->getMessage())) ? ': ' . $e->getMessage() : ' with no message';
 
