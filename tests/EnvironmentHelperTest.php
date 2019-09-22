@@ -22,6 +22,10 @@ class EnvironmentHelperTest extends TestCase
             $value
         );
         $this->assertEquals(
+            env("HALPDESK_TEST"),
+            $value
+        );
+        $this->assertEquals(
             env("NOT_FOUND", "zoom"),
             "zoom"
         );

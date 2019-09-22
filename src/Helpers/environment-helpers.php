@@ -7,7 +7,7 @@
  *  @author Halpdesk
  */
 if (!function_exists('env')) {
-    function env(String $key, String $default)
+    function env(String $key, String $default = "")
     {
         $value = getenv($key);
         return empty($value) ? $default : $value;
