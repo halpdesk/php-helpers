@@ -18,7 +18,8 @@
             "src/Helpers/array-helpers.php",
             "src/Helpers/array-key-helpers.php",
             "src/Helpers/console-helpers.php",
-            "src/Helpers/error-helpers.php"
+            "src/Helpers/error-helpers.php",
+            "src/Helpers/environment-helpers.php"
         ],
         "classmap": [
         ]
