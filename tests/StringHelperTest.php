@@ -17,11 +17,11 @@ class StringHelperTest extends TestCase
     {
         $this->assertEquals(
             'helloWorld',
-            camel_case('HelloWorld')
+            \Halpdesk\Helpers\camel_case('HelloWorld')
         );
         $this->assertEquals(
             'helloWorld',
-            camel_case('Hello world')
+            \Halpdesk\Helpers\camel_case('Hello world')
         );
         // $this->assertEquals(
         //     'helloWorld',
@@ -29,11 +29,11 @@ class StringHelperTest extends TestCase
         // );
         $this->assertEquals(
             'helloWorld',
-            camel_case('hello-world')
+            \Halpdesk\Helpers\camel_case('hello-world')
         );
         $this->assertEquals(
             'helloWorld',
-            camel_case('hello_world')
+            \Halpdesk\Helpers\camel_case('hello_world')
         );
     }
 

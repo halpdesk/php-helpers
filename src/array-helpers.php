@@ -1,16 +1,17 @@
 <?php
 
-/**
- *  This function reads a JSON content string and converts it to an Array
- *  By Halpdesk
- *
- *  @param  String      $content    The CSV string to convert
- *  @param  Boolean     $assoc      If set to true, the function returns an object instead
- *  @throws Exception               Exception with json_last_error from json_decode if any
- *  @return mixed                   The resulting array or object
- *
- */
-if (!function_exists('json_to_array')) {
+namespace Halpdesk\Helpers {
+
+    /**
+     *  This function reads a JSON content string and converts it to an Array
+     *  By Halpdesk
+     *
+     *  @param  String      $content    The CSV string to convert
+     *  @param  Boolean     $assoc      If set to true, the function returns an object instead
+     *  @throws Exception               Exception with json_last_error from json_decode if any
+     *  @return mixed                   The resulting array or object
+     *
+     */
     function json_to_array(String $content, $assoc = true)
     {
         // Remove byte order mark from beginning of content if found
@@ -51,22 +52,19 @@ if (!function_exists('json_to_array')) {
                     $error = 'Unknown error';
                     break;
             }
-            throw new Exception('json_decode() ['.json_last_error() . ']: '.$error.' (' . json_last_error_msg() .')', json_last_error());
+            throw new \Exception('json_decode() ['.json_last_error() . ']: '.$error.' (' . json_last_error_msg() .')', json_last_error());
         }
         return $result;
     }
-}
 
-
-/**
- *  Reads a JSON file and converts it to an Array
- *
- *  @param  String      $path   Full path to JSON file
- *  @return Array               The resulting array
- *  @author Halpdesk
- *
- */
-if (!function_exists('json_file_to_array') && function_exists('json_to_array')) {
+    /**
+     *  Reads a JSON file and converts it to an Array
+     *
+     *  @param  String      $path   Full path to JSON file
+     *  @return Array               The resulting array
+     *  @author Halpdesk
+     *
+     */
     function json_file_to_array(String $path)
     {
         if (!file_exists($path)) {
@@ -98,18 +96,15 @@ if (!function_exists('json_file_to_array') && function_exists('json_to_array')) 
         // Return
         return $result;
     }
-}
 
-
-/**
- *  Combine two arrays with same keys, last value persists
- *  ignores empty values
- *
- *  @param  Array[] $array  The arrays to patch
- *  @return Array           The resulting array
- *  @author Halpdesk
- */
-if (!function_exists('array_patch')) {
+    /**
+     *  Combine two arrays with same keys, last value persists
+     *  ignores empty values
+     *
+     *  @param  Array[] $array  The arrays to patch
+     *  @return Array           The resulting array
+     *  @author Halpdesk
+     */
     function array_patch(...$array)
     {
         $args = func_get_args();
@@ -138,17 +133,15 @@ if (!function_exists('array_patch')) {
         }
         return $result;
     }
-}
 
-/**
- *  Transforms an array to CSV format
- *
- *  @param  Array $array        The arrays to transform
- *  @return string $separator   The CSV separator, typically a semicolon or comma
- *  @return string $newLine     The newline character, typically "\r\n" for windows, "\n" for linux systems
- *  @author Halpdesk
- */
-if (! function_exists('array_to_csv')) {
+    /**
+     *  Transforms an array to CSV format
+     *
+     *  @param  Array $array        The arrays to transform
+     *  @return string $separator   The CSV separator, typically a semicolon or comma
+     *  @return string $newLine     The newline character, typically "\r\n" for windows, "\n" for linux systems
+     *  @author Halpdesk
+     */
     function array_to_csv(Array $array, String $separator = ';', String $newLine = "\n")
     {
         $content = '';
@@ -173,5 +166,28 @@ if (! function_exists('array_to_csv')) {
             $result = null;
         }
         return $result;
+    }
+}
+
+namespace {
+    if (!function_exists('json_to_array')) {
+        function json_to_array(String $content, $assoc = true) {
+            return Halpdesk\Helpers\json_to_array($content, $assoc);
+        }
+    }
+    if (!function_exists('json_file_to_array') && function_exists('json_to_array')) {
+        function json_file_to_array(String $path) {
+            return Halpdesk\Helpers\json_file_to_array($path);
+        }
+    }
+    if (!function_exists('array_patch')) {
+        function array_patch(...$array) {
+            return Halpdesk\Helpers\array_patch(...$array);
+        }
+    }
+    if (!function_exists('array_to_csv')) {
+        function array_to_csv(Array $array, String $separator = ';', String $newLine = "\n") {
+            return Halpdesk\Helpers\array_to_csv($array, $separator, $newLine);
+        }
     }
 }

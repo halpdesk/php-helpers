@@ -41,7 +41,7 @@ class ArrayHelperTest extends TestCase
     public function test_json_to_array()
     {
         $json = file_get_contents(__DIR__.'/testfiles/positive.json');
-        $array = json_to_array($json);
+        $array = \Halpdesk\Helpers\json_to_array($json);
         $this->assertEquals($array, $this->expectedArray);
     }
 

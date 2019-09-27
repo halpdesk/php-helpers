@@ -37,7 +37,7 @@ class ConsoleHelperTest extends TestCase
     {
         // Since eject prints the string directly, it must be captured by the output buffer
         ob_start();
-        eject(["foo" => "baz", "bar" => "buz"], 2, 'blue', 'brown');
+        \Halpdesk\Helpers\eject(["foo" => "baz", "bar" => "buz"], 2, 'blue', 'brown');
         $ejectString = ob_get_contents();
         ob_end_clean();
 

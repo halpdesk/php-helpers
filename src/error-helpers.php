@@ -1,15 +1,16 @@
 <?php
 
-/**
- * get_formatted_trace - get the trace of an exception
- * depends on Laravel functions
- *
- * @param Array     $trace      The trace stack to format
- * @param String    $basePath   If not null, it removes the base path portion for each trace line
- * @return Array                The formatted trace
- * @author Halpdesk
- */
-if (!function_exists('get_formatted_trace')) {
+namespace Halpdesk\Helpers {
+
+    /**
+     * get_formatted_trace - get the trace of an exception
+     * depends on Laravel functions
+     *
+     * @param Array     $trace      The trace stack to format
+     * @param String    $basePath   If not null, it removes the base path portion for each trace line
+     * @return Array                The formatted trace
+     * @author Halpdesk
+     */
     function get_formatted_trace(Array $trace, String $basePath = null)
     {
         $basePath = $basePath ?? (function_exists('base_path') ? base_path() : dirname(realpath(__FILE__))) . DIRECTORY_SEPARATOR;
@@ -34,19 +35,17 @@ if (!function_exists('get_formatted_trace')) {
 
         return $formattedTrace;
     }
-}
 
-/**
- *  get_formatted_error - get the error of an exception
- *
- * @param Array     $trace      The trace stack to format
- * @param String    $basePath   If not null, it removes the base path portion for each trace line
- * @param bool      $showFile   If set to true, show which file
- * @return Array                The formatted trace
- * @author Halpdesk
- */
-if (!function_exists('get_formatted_error')) {
-    function get_formatted_error(Exception $e, String $basePath = null, bool $showFile = true)
+    /**
+     *  get_formatted_error - get the error of an exception
+     *
+     * @param Array     $trace      The trace stack to format
+     * @param String    $basePath   If not null, it removes the base path portion for each trace line
+     * @param bool      $showFile   If set to true, show which file
+     * @return Array                The formatted trace
+     * @author Halpdesk
+     */
+    function get_formatted_error(\Exception $e, String $basePath = null, bool $showFile = true)
     {
         $basePath = $basePath ?? (function_exists('base_path') ? base_path() : dirname(realpath(__FILE__))) . DIRECTORY_SEPARATOR;
 
@@ -58,5 +57,19 @@ if (!function_exists('get_formatted_error')) {
             ($showFile ? ' --> ' . $basePath . $file . ':' . $line : '');
 
         return $formattedError;
+    }
+}
+
+namespace {
+
+    if (!function_exists('get_formatted_trace')) {
+        function get_formatted_trace(Array $trace, String $basePath = null) {
+            return Halpdesk\Helpers\get_formatted_trace($trace, $basePath);
+        }
+    }
+    if (!function_exists('get_formatted_error')) {
+        function get_formatted_error(Exception $e, String $basePath = null, bool $showFile = true) {
+            return Halpdesk\Helpers\get_formatted_error($e, $basePath, $showFile);
+        }
     }
 }

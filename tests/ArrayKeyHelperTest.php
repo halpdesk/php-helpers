@@ -129,6 +129,6 @@ class ArrayKeyHelperTest extends TestCase
                 'kebab-case'    => true,
                 'snake_case'    => true,
             ]
-        ], array_keys_to_lcfirst($this->testArray));
+        ], \Halpdesk\Helpers\array_keys_to_lcfirst($this->testArray));
     }
 }

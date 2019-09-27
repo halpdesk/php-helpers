@@ -46,7 +46,7 @@ class ErrorHelperTest extends TestCase
                 return $item->doesNotExist;
             });
         } catch (Exception $e) {
-            $result = get_formatted_error($e);
+            $result = \Halpdesk\Helpers\get_formatted_error($e);
         }
 
         $this->assertTrue(strpos($result, "Notice[8]: Trying to get property 'doesNotExist' of non-object -->") === 0);
