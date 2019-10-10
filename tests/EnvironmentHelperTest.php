@@ -29,5 +29,8 @@ class EnvironmentHelperTest extends TestCase
             \Halpdesk\Helpers\env("NOT_FOUND", "zoom"),
             "zoom"
         );
+        $this->assertNull(
+            env("HALPDESK_ENV_NOT_FOUND", null)
+        );
     }
 }
