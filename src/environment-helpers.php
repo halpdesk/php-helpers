@@ -19,7 +19,12 @@ namespace {
 
     if (!function_exists('env')) {
         function env(String $key, $default = null) {
-            return Halpdesk\Helpers\env($key, $default);
+            // Support only if function missing, but don't mess with Laravel
+            if (class_exists(\Illuminate\Support\Env::class)) {
+                return \Illuminate\Support\Env::get($key, $default);
+            } else {
+                return Halpdesk\Helpers\env($key, $default);
+            }
         }
     }
 }
