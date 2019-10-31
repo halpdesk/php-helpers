@@ -71,6 +71,8 @@ namespace Halpdesk\Helpers {
                     $type = gettype($value);
                     if (is_numeric($value)) {
                         $temp = intval($value);
+                    } else {
+                        unset($temp);
                     }
                     $value = cc($value, $fgValueColor, $bgColor, true);
                     settype($value, $type);
