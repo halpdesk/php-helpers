@@ -18,7 +18,7 @@ namespace Halpdesk\Helpers {
      *  @param String $bg   The background color
      *  @author Halpdesk
      */
-    function cc(String $string, String $fg = null, String $bg = null)
+    function cc($string, String $fg = null, String $bg = null)
     {
         $escChr = "\033";
         $fgs = array(
@@ -55,10 +55,10 @@ namespace Halpdesk\Helpers {
      *  @return void
      *  @author Halpdesk
      */
-    function eject(Array $arr, int $tabspace = 2, String $fgKeyColor = 'blue', String $fgValueColor = 'brown', $bgColor = null)
+    function eject(Array $arr, int $tabspace = 0, String $fgKeyColor = 'light_blue', String $fgValueColor = 'light_gray', $bgColor = null)
     {
         if ($arr instanceof stdClass) {
-            $arr = json_decode(json_encode($arr), true);;
+            $arr = json_decode(json_encode($arr), true);
         }
         // Anonymous recursive function
         $f = function ($array) use (&$f, $fgKeyColor, $fgValueColor, $bgColor) {
@@ -68,7 +68,13 @@ namespace Halpdesk\Helpers {
             $helper = array();
             foreach ($array as $key => $value) {
                 if (!is_array($value)) {
+                    $type = gettype($value);
+                    if (is_numeric($value)) {
+                        $temp = intval($value);
+                    }
                     $value = cc($value, $fgValueColor, $bgColor, true);
+                    settype($value, $type);
+                    $value = $temp ?? $value;
                 }
                 if (!is_int($key)) {
                     $key = cc($key, $fgKeyColor, $bgColor, true);
